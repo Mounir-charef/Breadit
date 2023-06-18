@@ -3,6 +3,7 @@ import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
 import { getAuthSession } from "@/lib/auth";
+import UserAccount from "./UserAccount";
 
 export default async function Navbar() {
   const session = await getAuthSession();
@@ -17,12 +18,12 @@ export default async function Navbar() {
           </p>
         </Link>
         {/* TODO: search bar */}
-        {!session ? (
+        {session ? (
+          <UserAccount user={session.user} />
+        ) : (
           <Link href="/sign-in" className={cn(buttonVariants())}>
             Sign in
           </Link>
-        ) : (
-          <p>Welcome {session.user.name?.split(" ")[0]}</p>
         )}
       </div>
     </div>

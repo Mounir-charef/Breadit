@@ -1,6 +1,20 @@
-import { LucideProps, MessageSquare, User } from "lucide-react";
+import {
+  LucideProps,
+  MessageSquare,
+  User,
+  Mail,
+  Settings,
+  Newspaper,
+  PlusCircle,
+  LogOut,
+} from "lucide-react";
 
 export const Icons = {
+  logout: LogOut,
+  plus: PlusCircle,
+  feed: Newspaper,
+  setting: Settings,
+  mail: Mail,
   user: User,
   logo: (props: LucideProps) => (
     <svg

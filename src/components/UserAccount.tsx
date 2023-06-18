@@ -24,7 +24,7 @@ interface UserAccountProps {
 const UserAccount: FC<UserAccountProps> = ({ user }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="rounded-full">
         <UserAvatar
           className="cursor-pointer h-8 w-8"
           user={{
@@ -48,27 +48,28 @@ const UserAccount: FC<UserAccountProps> = ({ user }) => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href="/">
               <Icons.feed className="mr-2 h-4 w-4" />
               <span>Feed</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href="/r/create">
               <Icons.plus className="mr-2 h-4 w-4" />
               <span>Create Community</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link className="self-center" href="/setting">
               <Icons.setting className="mr-2 h-4 w-4" />
               <span>Setting</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator className="cursor-pointer" />
+        <DropdownMenuSeparator />
         <DropdownMenuItem
+          className="cursor-pointer"
           onSelect={(e) => {
             e.preventDefault();
             signOut();

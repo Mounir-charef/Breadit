@@ -1,9 +1,9 @@
+import SignUp from "@/components/SignUp";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { FC } from "react";
-import SignIn from "@/components/SignIn";
-import { ChevronLeft } from "lucide-react";
 
 const Page: FC = () => {
   return (
@@ -20,7 +20,7 @@ const Page: FC = () => {
         >
           <ChevronLeft className="mr-2 h-6 w-6" /> Go back home
         </Link>
-        <SignIn />
+        <SignUp />
       </div>
     </div>
   );

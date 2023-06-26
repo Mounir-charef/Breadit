@@ -1,7 +1,8 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { User } from "next-auth";
 import UserAvatar from "./UserAvatar";
+import { Loader2 } from "lucide-react";
 import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -22,6 +23,7 @@ interface UserAccountProps {
 }
 
 const UserAccount: FC<UserAccountProps> = ({ user }) => {
+  const [loading, setLoading] = useState(false);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full">
@@ -33,7 +35,7 @@ const UserAccount: FC<UserAccountProps> = ({ user }) => {
           }}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white" align="end">
+      <DropdownMenuContent className="bg-white">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -72,10 +74,16 @@ const UserAccount: FC<UserAccountProps> = ({ user }) => {
           className="cursor-pointer"
           onSelect={(e) => {
             e.preventDefault();
+            setLoading(true);
             signOut();
           }}
         >
-          <span>Sign out</span> <Icons.logout className="ml-2 h-4 w-4" />
+          <span>Sign out</span>{" "}
+          {loading ? (
+            <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Icons.logout className="ml-2 h-4 w-4" />
+          )}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

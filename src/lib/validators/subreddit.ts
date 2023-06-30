@@ -2,7 +2,6 @@ import z from 'zod';
 
 export const subredditSchema = z.object({
     name: z.string().min(3).max(21),
-    icon: z.string().optional(),
 });
 
 export const subredditSubsriptionSchema = z.object({

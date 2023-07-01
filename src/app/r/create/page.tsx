@@ -6,16 +6,15 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import type { Subreddit } from "@/lib/validators/subreddit";
+import { toast } from "@/hooks/use-toast";
+import { useCustonToast } from "@/hooks/use-custom-toast";
 
 const page = () => {
   const [input, setInput] = useState("");
   const router = useRouter();
+  const { loginToast } = useCustonToast();
 
-  const {
-    mutate: createCommunity,
-    isLoading,
-    isError,
-  } = useMutation({
+  const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: Subreddit = {
         name: input,
@@ -23,6 +22,40 @@ const page = () => {
 
       const { data } = await axios.post("/api/subreddit", payload);
       return data as string;
+    },
+    onError: (error: AxiosError) => {
+      switch (error.response?.status) {
+        case 422:
+          toast({
+            title: "Invalid subreddit name",
+            description: "Please choose a name between 3 and 21 characters",
+            variant: "destructive",
+          });
+          break;
+
+        case 401:
+          loginToast();
+          break;
+
+        case 409:
+          toast({
+            title: "Community already exists",
+            description: "Please choose a different name",
+            variant: "destructive",
+          });
+          break;
+
+        default:
+          toast({
+            title: "Something went wrong",
+            description: "Please try again later",
+            variant: "destructive",
+          });
+          break;
+      }
+    },
+    onSuccess: (data) => {
+      router.push(`/r/${data}`);
     },
   });
 
@@ -59,7 +92,7 @@ const page = () => {
             isLoading={isLoading}
             onClick={() => createCommunity()}
           >
-            Create
+            Create community
           </Button>
         </div>
       </div>

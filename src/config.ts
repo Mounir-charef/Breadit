@@ -1,0 +1,1 @@
+export const SCROLLING_PAGINATION_SIZE = 2
